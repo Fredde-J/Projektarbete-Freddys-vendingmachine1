@@ -12,8 +12,7 @@ import java.util.Scanner;
 public class VendingMachine {
     private String nameOfVendingMachine = "";
     public Scanner scanner = new Scanner(System.in);
-    private double money = 100;
-    private int sum = 0;
+    private double sum = 0;
     private String choice = "";
     ShoppingCart shoppingCart = new ShoppingCart();
 
@@ -71,7 +70,7 @@ public class VendingMachine {
     public void addFood() {
         boolean bool = true;
 
-        while (money > 10 && bool) {
+        while ( bool) {
             System.out.println("---------------------------------------------------------------------------------");
             System.out.println("Press 1-6 to add food to your shopping cart. press 0 to go back to mainmenu");
             System.out.println("1.SWEBAR Strawberry proteinbar                 10kr");
@@ -82,53 +81,40 @@ public class VendingMachine {
             System.out.println("6.DORITOS chili cornchips                      20kr");
             System.out.println("0.Go to Main menu");
             System.out.println("---------------------------------------------------------------------------------");
-            System.out.println("Money left in you wallet: " + money + "kr");
             choice = scanner.next();
             switch (choice) {
                 case "1":
                     ProteinBar sweBar = new ProteinBar("SWEBAR Strawberry proteinbar", 10, 10, 1);
                     shoppingCart.addToCart(sweBar);
-                    money -= 10;
-                    sum += 10;
                     System.out.println("*SWEBAR Strawberry proteinbar has been added to your shopping cart*");
                     break;
                 case "2":
                     ProteinBar bareBells = new ProteinBar("BAREBELLS Cookies and cream proteinbar", 13, 15, 1);
                     shoppingCart.addToCart(bareBells);
-                    money -= 13;
-                    sum += 13;
                     System.out.println("*Barebells cookies and cream proteinbar has been added to your shopping cart*");
                     break;
 
                 case "3":
                     ProteinBar core = new ProteinBar("CORE chocolate proteinbar", 15, 20, 1);
                     shoppingCart.addToCart(core);
-                    money -= 15;
-                    sum += 15;
                     System.out.println("*Core chocolate proteinbar has been added to your shopping cart*");
                     break;
 
                 case "4":
                     Chips olw = new Chips("OLW sourcream and onion chips", 18, 20, 1);
                     shoppingCart.addToCart(olw);
-                    money -= 18;
-                    sum += 18;
                     System.out.println("*OlW sourcream and onion chips has been added to your shopping cart*");
                     break;
 
                 case "5":
                     Chips lays = new Chips("LAYS salted chips", 15, 25, 1);
                     shoppingCart.addToCart(lays);
-                    money -= 15;
-                    sum += 15;
                     System.out.println("*Lays Salted chips has been added to your shopping cart*");
                     break;
 
                 case "6":
                     Chips doritos = new Chips("DORITOS chili cornchips", 20, 15, 1);
                     shoppingCart.addToCart(doritos);
-                    money -= 20;
-                    sum += 20;
                     System.out.println("*Doritos chili corn chips has been added to your shopping cart*");
                     break;
 
@@ -146,7 +132,7 @@ public class VendingMachine {
 
     public void addBeverage() {
         boolean bool = true;
-        while (money > 10 && bool) {
+        while (bool) {
             System.out.println("---------------------------------------------------------------------------------");
             System.out.println("Press 1-5 to add a beverage to your shopping cart. press 0 to go back to mainmenu");
             System.out.println("1.Cocacola           10kr");
@@ -156,43 +142,32 @@ public class VendingMachine {
             System.out.println("5.Loka(water)        5kr");
             System.out.println("0.Go to Main menu");
             System.out.println("---------------------------------------------------------------------------------");
-            System.out.println("Money left in you wallet: " + money + "kr");
 
             choice = scanner.next();
             switch (choice) {
                 case "1":
                     Beverage cocaCola = new Beverage("Cocacola", 10, 10, 2);
                     shoppingCart.addToCart(cocaCola);
-                    money -= 10;
-                    sum += 10;
                     System.out.println("*Cocacola has been added to your shopping cart*");
                     break;
                 case "2":
                     Beverage pepsi = new Beverage("Pepsi", 10, 10, 2);
                     shoppingCart.addToCart(pepsi);
-                    money -= 10;
-                    sum += 10;
                     System.out.println("*Pepsi has been added to your shopping cart*");
                     break;
                 case "3":
                     Beverage fanta = new Beverage("Fanta", 10, 10, 2);
                     shoppingCart.addToCart(fanta);
-                    money -= 10;
-                    sum += 10;
                     System.out.println("*Fanta has been added to your shopping cart*");
                     break;
                 case "4":
                     Beverage redBull = new Beverage("RedBull", 15, 20, 2);
                     shoppingCart.addToCart(redBull);
-                    money -= 15;
-                    sum += 15;
                     System.out.println("*Redbull has been added to your shopping cart*");
                     break;
                 case "5":
                     Beverage loka = new Beverage("Loka", 5, 0, 2);
                     shoppingCart.addToCart(loka);
-                    money -= 5;
-                    sum += 5;
                     System.out.println("*Loka has been added to your shopping cart*");
                     break;
                 case "0":
@@ -214,29 +189,36 @@ public class VendingMachine {
             System.out.println("0.Main menu");
             choice = scanner.next();
             switch (choice) {
+
                 case "1":
                     for (Grocery grocery : shoppingCart.groceryList) {
                         if (grocery.getSort() == 2) {
                             System.out.println(grocery);
+                            sum+=grocery.getPrice();
                         }
                     }
+                    System.out.println("Total sum for beverages: " + sum + " kr");
                     break;
 
                 case "2":
                     for (Grocery grocery : shoppingCart.groceryList) {
                         if (grocery.getSort() == 1) {
                             System.out.println(grocery);
+                            sum+=grocery.getPrice();
                         }
                     }
+                    System.out.println("Total sum for food: " + sum + " kr");
                     break;
                 case "3":
                     int i = 1;
                     Collections.sort(shoppingCart.groceryList);
                     for (Grocery grocery : shoppingCart.groceryList) {
                         System.out.println(i + "." + grocery);
+                        sum+=grocery.getPrice();
                         i++;
                     }
                     System.out.println("Total sum: " + sum + " kr");
+                    sum=0;
                     break;
 
                 case "0":
@@ -249,7 +231,7 @@ public class VendingMachine {
     }
 
     public void removeItemFromShoppingCart() {
-        System.out.println("Grocerys in your Shopping cart:");
+        System.out.println("Grocery's in your Shopping cart:");
         System.out.println("--------------------------------");
         int index = 1;
         for (Grocery grocery : shoppingCart.groceryList) {
