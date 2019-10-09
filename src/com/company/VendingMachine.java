@@ -22,9 +22,9 @@ public class VendingMachine {
 
     public void showMainMenu() {
         String menuChoice ="";
+        System.out.printf("[Welcome to %s] \n", nameOfVendingMachine);
         do {
-            System.out.printf("[Welcome to %s] \n", nameOfVendingMachine);
-            System.out.println("------------------------------------");
+            System.out.println("---------------------------------------------------------------------------------");
             System.out.println("Please choose a alternative below");
             System.out.println("1.Add food");
             System.out.println("2.Add Beverage");
@@ -32,7 +32,7 @@ public class VendingMachine {
             System.out.println("4.Remove item from shopping cart");
             System.out.println("5.Save your grocery's to a file");
             System.out.println("6.Import grocery's from file");
-            System.out.println("7.Exit program");
+            System.out.println("0.Exit program");
 
             menuChoice= scanner.next();
 
@@ -64,7 +64,7 @@ public class VendingMachine {
                     System.out.println("Wrong input! please try again.");
                     break;
             }
-        } while (!menuChoice.equals("7"));
+        } while (!menuChoice.equals("0"));
     }
 
     public void addFood() {
@@ -182,6 +182,7 @@ public class VendingMachine {
     public void showShoppingCart() {
         boolean bool = true;
         do {
+            System.out.println("---------------------------------------------------------------------------------");
             System.out.println("Press 1-3 to show diffrent lists of grocerys. Press 0 to go back to mainmenu");
             System.out.println("1.Show beverages");
             System.out.println("2.Show Food");
@@ -198,6 +199,7 @@ public class VendingMachine {
                         }
                     }
                     System.out.println("Total sum for beverages: " + sum + " kr");
+                    sum=0;
                     break;
 
                 case "2":
@@ -208,6 +210,7 @@ public class VendingMachine {
                         }
                     }
                     System.out.println("Total sum for food: " + sum + " kr");
+                    sum=0;
                     break;
                 case "3":
                     int i = 1;
@@ -231,15 +234,15 @@ public class VendingMachine {
     }
 
     public void removeItemFromShoppingCart() {
+        System.out.println("---------------------------------------------------------------------------------");
         System.out.println("Grocery's in your Shopping cart:");
-        System.out.println("--------------------------------");
         int index = 1;
         for (Grocery grocery : shoppingCart.groceryList) {
             System.out.println(index + "." + grocery);
             index++;
         }
+        System.out.println("---------------------------------------------------------------------------------");
         System.out.println("Press the index number of the product you want to remove");
-        System.out.println("--------------------------------------------------------");
         int input=scanner.nextInt();
          index=1;
          int removeIndex=0;
