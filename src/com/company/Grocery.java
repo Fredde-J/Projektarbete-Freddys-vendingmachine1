@@ -1,6 +1,8 @@
 package com.company;
 
-public abstract class Grocery implements Comparable<Grocery> {
+import java.io.Serializable;
+
+public abstract class Grocery implements Comparable<Grocery>, Serializable {
     private String name = "";
     private int price = 0;
     private int sort = 0;

@@ -51,11 +51,11 @@ public class VendingMachine {
                     removeItemFromShoppingCart();
                     break;
                 case "5":
-                    Receipt.makeReceiptFile();
+                    FileUtility.saveObject("ReceiptFile.ser",shoppingCart.groceryList);
                     System.out.println("Your shopping cart have been saved to file");
                     break;
                 case "6":
-                    shoppingCart.groceryList= (ArrayList<Grocery>) Receipt.copyReceipt("receiptFile.ser");
+                    shoppingCart.groceryList= (ArrayList<Grocery>) FileUtility.loadObject("ReceiptFile.ser");
                     System.out.println("Grocery's from file have been added to you shopping cart");
                     break;
                 case "7":
