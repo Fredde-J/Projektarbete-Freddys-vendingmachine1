@@ -9,6 +9,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * author Fredrik Jönsson
+ * This class is controls the program
+ */
 public class VendingMachine {
     private String nameOfVendingMachine = "";
     public Scanner scanner = new Scanner(System.in);
@@ -20,8 +24,11 @@ public class VendingMachine {
         this.nameOfVendingMachine = nameOfVendingMachine;
     }
 
+    /**
+     * Shows the main menu of the program and takes user input
+     */
     public void showMainMenu() {
-        String menuChoice ="";
+        String menuChoice = "";
         System.out.printf("[Welcome to %s] \n", nameOfVendingMachine);
         do {
             System.out.println("---------------------------------------------------------------------------------");
@@ -34,7 +41,7 @@ public class VendingMachine {
             System.out.println("6.Import grocery's from file");
             System.out.println("0.Exit program");
 
-            menuChoice= scanner.next();
+            menuChoice = scanner.next();
 
             switch (menuChoice) {
                 case "1":
@@ -50,14 +57,14 @@ public class VendingMachine {
                     removeItemFromShoppingCart();
                     break;
                 case "5":
-                    FileUtility.saveObject("ReceiptFile.ser",shoppingCart.groceryList);
+                    FileUtility.saveObject("ReceiptFile.ser", shoppingCart.groceryList);
                     System.out.println("Your shopping cart have been saved to file");
                     break;
                 case "6":
-                    shoppingCart.groceryList= (ArrayList<Grocery>) FileUtility.loadObject("ReceiptFile.ser");
+                    shoppingCart.groceryList = (ArrayList<Grocery>) FileUtility.loadObject("ReceiptFile.ser");
                     System.out.println("Grocery's from file have been added to you shopping cart");
                     break;
-                case "7":
+                case "0":
                     System.out.println("Thanks for the visit, have a nice day!");
                     break;
                 default:
@@ -67,10 +74,13 @@ public class VendingMachine {
         } while (!menuChoice.equals("0"));
     }
 
-    public void addFood() {
+    /**
+     * creates a food type thats extends from grocery class in to the groceryList (arraylist)
+     */
+    public void addFood() { //Adds food to groceryList (arraylist)
         boolean bool = true;
 
-        while ( bool) {
+        while (bool) {
             System.out.println("---------------------------------------------------------------------------------");
             System.out.println("Press 1-6 to add food to your shopping cart. press 0 to go back to mainmenu");
             System.out.println("1.SWEBAR Strawberry proteinbar                 10kr");
@@ -130,7 +140,10 @@ public class VendingMachine {
 
     }
 
-    public void addBeverage() {
+    /**
+     * creates a beverage type thats extends from grocery class in to the groceryList (arraylist)
+     */
+    public void addBeverage() { //adds beverages to shopping list (Arraylist)
         boolean bool = true;
         while (bool) {
             System.out.println("---------------------------------------------------------------------------------");
@@ -179,6 +192,9 @@ public class VendingMachine {
         }
     }
 
+    /**
+     * shows grocerys in the groceryList (arraylist)
+     */
     public void showShoppingCart() {
         boolean bool = true;
         do {
@@ -186,7 +202,9 @@ public class VendingMachine {
             System.out.println("Press 1-3 to show diffrent lists of grocerys. Press 0 to go back to mainmenu");
             System.out.println("1.Show beverages");
             System.out.println("2.Show Food");
-            System.out.println("3.Show all");
+            System.out.println("3.Show all grocery's");
+            System.out.println("4.Show all grocery's from lowest price to highest");
+            System.out.println("5.Show all grocery's in alphabetic order");
             System.out.println("0.Main menu");
             choice = scanner.next();
             switch (choice) {
@@ -195,33 +213,56 @@ public class VendingMachine {
                     for (Grocery grocery : shoppingCart.groceryList) {
                         if (grocery.getSort() == 2) {
                             System.out.println(grocery);
-                            sum+=grocery.getPrice();
+                            sum += grocery.getPrice();
                         }
                     }
                     System.out.println("Total sum for beverages: " + sum + " kr");
-                    sum=0;
+                    sum = 0;
                     break;
 
                 case "2":
                     for (Grocery grocery : shoppingCart.groceryList) {
                         if (grocery.getSort() == 1) {
                             System.out.println(grocery);
-                            sum+=grocery.getPrice();
+                            sum += grocery.getPrice();
                         }
                     }
                     System.out.println("Total sum for food: " + sum + " kr");
-                    sum=0;
+                    sum = 0;
                     break;
+
                 case "3":
                     int i = 1;
                     Collections.sort(shoppingCart.groceryList);
                     for (Grocery grocery : shoppingCart.groceryList) {
                         System.out.println(i + "." + grocery);
-                        sum+=grocery.getPrice();
+                        sum += grocery.getPrice();
                         i++;
                     }
                     System.out.println("Total sum: " + sum + " kr");
-                    sum=0;
+                    sum = 0;
+                    break;
+
+                case "4":
+                    SortByPrice sortByPrice = new SortByPrice();
+                    Collections.sort(shoppingCart.groceryList, sortByPrice);
+                    for (Grocery grocery : shoppingCart.groceryList) {
+                        System.out.println(grocery);
+                        sum += grocery.getPrice();
+                    }
+                    System.out.println("Total sum: " + sum + " kr");
+                    sum = 0;
+                    break;
+
+                case "5":
+                    SortByName sortByName = new SortByName();
+                    Collections.sort(shoppingCart.groceryList, sortByName);
+                    for (Grocery grocery : shoppingCart.groceryList) {
+                        System.out.println(grocery);
+                        sum += grocery.getPrice();
+                    }
+                    System.out.println("Total sum: " + sum + " kr");
+                    sum = 0;
                     break;
 
                 case "0":
@@ -233,6 +274,9 @@ public class VendingMachine {
         } while (bool);
     }
 
+    /**
+     * Removes a grocery from user choice from the groceyList (Arraylist)
+     */
     public void removeItemFromShoppingCart() {
         System.out.println("---------------------------------------------------------------------------------");
         System.out.println("Grocery's in your Shopping cart:");
@@ -243,12 +287,12 @@ public class VendingMachine {
         }
         System.out.println("---------------------------------------------------------------------------------");
         System.out.println("Press the index number of the product you want to remove");
-        int input=scanner.nextInt();
-         index=1;
-         int removeIndex=0;
-        for (Grocery grocery : shoppingCart.groceryList){
-            if(index==input){
-                System.out.println(grocery+" has been removed from shopping cart");
+        int input = scanner.nextInt();
+        index = 1;
+        int removeIndex = 0;
+        for (Grocery grocery : shoppingCart.groceryList) {
+            if (index == input) {
+                System.out.println(grocery + " has been removed from shopping cart");
                 break;
             }
             index++;

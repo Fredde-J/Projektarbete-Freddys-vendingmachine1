@@ -5,7 +5,7 @@ import java.util.Collections;
 
 public class ShoppingCart {
 
-    ArrayList<Grocery> groceryList = new ArrayList<>();
+   public ArrayList<Grocery> groceryList = new ArrayList<>();
 
     public ShoppingCart() {
 
@@ -15,7 +15,6 @@ public class ShoppingCart {
         groceryList.add(grocery);
         Collections.sort(groceryList);
     }
-
 
 }
 
