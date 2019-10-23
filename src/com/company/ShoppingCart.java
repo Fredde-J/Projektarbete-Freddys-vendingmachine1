@@ -7,9 +7,7 @@ public class ShoppingCart {
 
    public ArrayList<Grocery> groceryList = new ArrayList<>();
 
-    public ShoppingCart() {
-
-    }
+    public ShoppingCart() { }
 
     public void addToCart(Grocery grocery) {
         groceryList.add(grocery);
