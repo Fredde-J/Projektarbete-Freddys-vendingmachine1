@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 /**
  * author Fredrik Jönsson
- * This class is controls the program
+ * This class is where the user controls the program
  */
 public class VendingMachine {
     private String nameOfVendingMachine = "";
@@ -143,7 +143,7 @@ public class VendingMachine {
     /**
      * creates a beverage type thats extends from grocery class in to the groceryList (arraylist)
      */
-    public void addBeverage() { //adds beverages to shopping list (Arraylist)
+    public void addBeverage() {
         boolean bool = true;
         while (bool) {
             System.out.println("---------------------------------------------------------------------------------");
@@ -199,7 +199,7 @@ public class VendingMachine {
         boolean bool = true;
         do {
             System.out.println("---------------------------------------------------------------------------------");
-            System.out.println("Press 1-3 to show diffrent lists of grocerys. Press 0 to go back to mainmenu");
+            System.out.println("Press 1-3 to show different lists of grocerys. Press 0 to go back to mainmenu");
             System.out.println("1.Show beverages");
             System.out.println("2.Show Food");
             System.out.println("3.Show all grocery's");
@@ -210,6 +210,7 @@ public class VendingMachine {
             switch (choice) {
 
                 case "1":
+                    sum = 0;
                     for (Grocery grocery : shoppingCart.groceryList) {
                         if (grocery.getSort() == 2) {
                             System.out.println(grocery);
@@ -217,10 +218,10 @@ public class VendingMachine {
                         }
                     }
                     System.out.println("Total sum for beverages: " + sum + " kr");
-                    sum = 0;
                     break;
 
                 case "2":
+                    sum = 0;
                     for (Grocery grocery : shoppingCart.groceryList) {
                         if (grocery.getSort() == 1) {
                             System.out.println(grocery);
@@ -228,10 +229,10 @@ public class VendingMachine {
                         }
                     }
                     System.out.println("Total sum for food: " + sum + " kr");
-                    sum = 0;
                     break;
 
                 case "3":
+                    sum = 0;
                     int i = 1;
                     Collections.sort(shoppingCart.groceryList);
                     for (Grocery grocery : shoppingCart.groceryList) {
@@ -240,10 +241,10 @@ public class VendingMachine {
                         i++;
                     }
                     System.out.println("Total sum: " + sum + " kr");
-                    sum = 0;
                     break;
 
                 case "4":
+                    sum = 0;
                     SortByPrice sortByPrice = new SortByPrice();
                     Collections.sort(shoppingCart.groceryList, sortByPrice);
                     for (Grocery grocery : shoppingCart.groceryList) {
@@ -251,10 +252,10 @@ public class VendingMachine {
                         sum += grocery.getPrice();
                     }
                     System.out.println("Total sum: " + sum + " kr");
-                    sum = 0;
                     break;
 
                 case "5":
+                    sum = 0;
                     SortByName sortByName = new SortByName();
                     Collections.sort(shoppingCart.groceryList, sortByName);
                     for (Grocery grocery : shoppingCart.groceryList) {
@@ -262,7 +263,6 @@ public class VendingMachine {
                         sum += grocery.getPrice();
                     }
                     System.out.println("Total sum: " + sum + " kr");
-                    sum = 0;
                     break;
 
                 case "0":
@@ -286,7 +286,7 @@ public class VendingMachine {
             index++;
         }
         System.out.println("---------------------------------------------------------------------------------");
-        System.out.println("Press the index number of the product you want to remove");
+        System.out.println("Press the index number of the product you want to remove:");
         int input = scanner.nextInt();
         index = 1;
         int removeIndex = 0;
