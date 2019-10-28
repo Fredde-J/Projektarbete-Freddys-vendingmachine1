@@ -1,12 +1,8 @@
 package com.company;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -29,12 +25,12 @@ public class VendingMachine {
      */
     public void showMainMenu() {
         String menuChoice = "";
-        System.out.printf("[Welcome to %s] \n", nameOfVendingMachine);
+        System.out.printf("[Welcome to %s!] \n", nameOfVendingMachine);
         do {
             System.out.println("---------------------------------------------------------------------------------");
             System.out.println("Please choose a alternative below");
             System.out.println("1.Add food");
-            System.out.println("2.Add Beverage");
+            System.out.println("2.Add beverage");
             System.out.println("3.Show shopping cart");
             System.out.println("4.Remove item from shopping cart");
             System.out.println("5.Save your grocery's to a file");
@@ -201,7 +197,7 @@ public class VendingMachine {
             System.out.println("---------------------------------------------------------------------------------");
             System.out.println("Press 1-3 to show different lists of grocerys. Press 0 to go back to mainmenu");
             System.out.println("1.Show beverages");
-            System.out.println("2.Show Food");
+            System.out.println("2.Show food");
             System.out.println("3.Show all grocery's");
             System.out.println("4.Show all grocery's from lowest price to highest");
             System.out.println("5.Show all grocery's in alphabetic order");
@@ -293,12 +289,16 @@ public class VendingMachine {
         for (Grocery grocery : shoppingCart.groceryList) {
             if (index == input) {
                 System.out.println(grocery + " has been removed from shopping cart");
+                sum = (sum - (shoppingCart.groceryList.get(removeIndex).getPrice()));
+                shoppingCart.groceryList.remove(removeIndex);
                 break;
             }
             index++;
             removeIndex++;
         }
-        sum = (sum - (shoppingCart.groceryList.get(removeIndex).getPrice()));
-        shoppingCart.groceryList.remove(removeIndex);
+        if (removeIndex!=input){
+            System.out.println("There was no item at that index number");
+        }
+
     }
 }
